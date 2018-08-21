@@ -21,5 +21,14 @@ try:
 except IOError:
     print('the file is missing!')
 file.close();
-print(man)
-print(other)
+try:
+    outMan = open('man.txt','w')
+    outOther=open('other.txt','w')
+
+    print(man,file=outMan)
+    print(other,file=outOther)
+
+    outMan.close()
+    outOther.close()
+except IOError:
+    print('the file is not exits')
