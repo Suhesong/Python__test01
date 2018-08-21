@@ -1,10 +1,11 @@
 import os
+import nest
 os.chdir('./pytest01')
 
-man=[];
-other=[];
+man=[]
+other=[]
 try:
-    file =open('test.txt');
+    file =open('test.txt')
     for each in file:
         try:
             (role,line_spoken)=each.split(':',1)
@@ -13,22 +14,24 @@ try:
                 man.append(line_spoken)
             elif role=='Amy':
                 other.append(line_spoken)
-            print(role,end='')
-            print(' said: ', end='')
-            print(line_spoken,end='')
         except ValueError:
             pass
 except IOError:
     print('the file is missing!')
-file.close();
+if file in locals():
+    file.close()
 try:
-    outMan = open('man.txt','w')
-    outOther=open('other.txt','w')
+    outMan = open('man.txt1','w')
+    outOther=open('other.txt1','w')
 
-    print(man,file=outMan)
-    print(other,file=outOther)
+    nest.f(man,fn=outMan)
+    nest.f(other,True,0,outOther)
+except IOError as err:
+    print('the file'+ str(err))
+finally:
+    if outMan in locals():
+        outMan.close()
+    if outOther in locals():
+        outOther.close()
 
-    outMan.close()
-    outOther.close()
-except IOError:
-    print('the file is not exits')
+print('all is ok!')
